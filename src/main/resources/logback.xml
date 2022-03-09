@@ -13,7 +13,7 @@
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{loginMemberName} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{loginMemberName} - %X{requestURI} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -21,7 +21,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <!-- 아래 first와 last는 mdc로 매핑해준 것 ( User에 따라 어떤 로그가 남았는지 확인 가능 ) -->
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{loginMemberName} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{loginMemberName} - %X{requestURI} - %msg%n</pattern>
         </encoder>
     </appender>
 

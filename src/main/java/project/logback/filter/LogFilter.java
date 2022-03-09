@@ -23,8 +23,8 @@ public class LogFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
 
         try {
+            MDC.put("requestURI", requestURI);
             log.info("Filter Starting ...");
-
             if (session == null || session.getAttribute("loginMemberName") == null) {
                 log.info("not login User");
                 MDC.put("loginMemberName", "No User");
