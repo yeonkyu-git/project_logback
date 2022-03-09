@@ -1,0 +1,40 @@
+<configuration>
+
+    <!-- Log File 로 보관 -->
+    <property name="LOG_FILE" value="LogFile" />
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{loginMemberName} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 출력 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 아래 first와 last는 mdc로 매핑해준 것 ( User에 따라 어떤 로그가 남았는지 확인 가능 ) -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{loginMemberName} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout>
+            <Pattern>%X{first} %X{last} - %m%n</Pattern>
+        </layout>
+    </appender>
+
+    <root level="info">
+<!--        <appender-ref ref="CONSOLE" />-->
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
